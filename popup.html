@@ -1,0 +1,41 @@
+<!doctype html>
+<html>
+<head>
+	<title>NPELS helper</title>
+	<style type="text/css">
+		body {
+			margin: 10px;
+			white-space: nowrap;
+		}
+		h1 {
+			font-size: 15px;
+		}
+
+		span.red {
+			color: red;
+		}
+		span.green {
+			color: green;
+		}
+		span.blue {
+			color: blue;
+		}
+
+		div.hide {
+			display: none;
+		}
+	</style>
+	<script src="simpleStorage.js"></script>
+	<script src="popup.js"></script>
+</head>
+
+<body>
+	<h1>NPELS 辅助工具</h1>
+	<p><span id="is-on-listening" class="blue"><i>正在检测……</i></span></p>
+	<hr />
+	<div id="section-listening" class="hide">
+		<p>该页面有听力文件 <span id="section-listening_filenum">0</span> 个</p>
+		<p><button id="section-listening_show-all-download-link">显示下载按钮</button></p>
+	</div>
+</body>
+</html>

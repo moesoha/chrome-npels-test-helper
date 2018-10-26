@@ -1,0 +1,21 @@
+{
+	"name": "NPELS 课程测试辅助",
+	"version": "1.0",
+	"description": "Download listening sounds on the page.",
+	"manifest_version": 2,
+	"browser_action": {
+		"default_icon": "icon.png",
+		"default_popup": "popup.html"
+	},
+	"content_scripts": [{
+		"js": [
+			"test.js"
+		],
+		"matches": [
+			"<all_urls>"
+		]
+	}],
+	"permissions": [
+		"activeTab"
+	]
+}
