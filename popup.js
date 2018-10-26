@@ -41,4 +41,13 @@ document.addEventListener('DOMContentLoaded',function (){
 			});
 		});
 	});
+
+	document.querySelectorAll('a.newtab').forEach(function (ln){
+		ln.onclick=function (){
+			chrome.tabs.create({
+				active: true,
+				url: ln.href
+			});
+		};
+	});
 });
