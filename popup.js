@@ -18,10 +18,18 @@ let showDownloadButton=function (){
 			from: 'popup'
 		});
 	});
+},showHTMLPlayButton=function (){
+	getCurrentTabId(function (tabId){
+		chrome.tabs.sendMessage(tabId,{
+			operation: 'showHTMLPlayButton',
+			from: 'popup'
+		});
+	});
 };
 
 document.addEventListener('DOMContentLoaded',function (){
 	document.getElementById('section-listening_show-all-download-link').onclick=showDownloadButton;
+	document.getElementById('section-listening_show-html-play-button').onclick=showHTMLPlayButton;
 	getCurrentTabId(function (tabId){
 		chrome.tabs.sendMessage(tabId,{
 			operation: 'isListeningPage',

@@ -23,7 +23,7 @@ let iteratePlayButtons=function (doEach){
 		let playPayload=playButton.attributes.onclick.value;
 		let playFileUrl=/PlaySound\('(.+?)'/.exec(playPayload);
 		if(playFileUrl){
-			doEach(playFileUrl[1],e);
+			doEach(playFileUrl[1],e,playButton);
 		}
 	});
 },isListeningPage=function (){
@@ -83,6 +83,39 @@ chrome.runtime.onMessage.addListener(function (message,sender,respond){
 					downloadButton.setAttribute('download','listening');
 					downloadButton.textContent='下载录音';
 					e.appendChild(downloadButton);
+				});
+			});
+			break;
+		case 'showHTMLPlayButton':
+			if(!isListeningPage()){
+				break;
+			}
+			getPlayBaseUrl(function (playBaseUrl){
+				iteratePlayButtons(function (_,p,e){
+					let newButton=e.cloneNode(true);
+					console.log(newButton);
+					newButton.removeAttribute('onclick');
+					let payload=e.attributes.onclick.value.replace('PlaySound','PlaySoundChrome');
+					newButton.onclick=function (){
+						let PlaySoundChrome=(function (playBaseUrl){
+							let html5Audio=document.createElement('audio');
+							html5Audio.style="display: none;";
+							document.body.appendChild(html5Audio);
+							return function (src,id){
+								let soundfile=playBaseUrl+src;
+								html5Audio.src=soundfile;
+								html5Audio.currentTime=0;
+								html5Audio.volume=1;
+								html5Audio.play();
+								if(id){
+	
+								}
+							};
+						})(playBaseUrl);
+						eval(payload);
+					};
+					newButton.value=newButton.value.replace('播放','HTML5播放');
+					p.appendChild(newButton);
 				});
 			});
 			break;
