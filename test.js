@@ -94,6 +94,7 @@ chrome.runtime.onMessage.addListener(function (message,sender,respond){
 			}
 			getPlayBaseUrl(function (playBaseUrl){
 				iteratePlayButtons(function (_,p,e){
+					let oldButton=e;
 					let newButton=e.cloneNode(true);
 					newButton.removeAttribute('onclick');
 					newButton.id=newButton.id.replace('_','_p_');
@@ -115,9 +116,11 @@ chrome.runtime.onMessage.addListener(function (message,sender,respond){
 									count=count.substring(0, count.indexOf('次'));
 									count=parseInt(count);
 									count--;
+									oldButton.value=`播放（${count}次机会）`
 									e.srcElement.value=`HTML5播放（${count}次机会）`;
 									if(count<=0){
 										e.srcElement.setAttribute('disabled','disabled');
+										oldButton.setAttribute('disabled','disabled');
 									}
 								}
 							};
