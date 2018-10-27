@@ -30,6 +30,7 @@ let showDownloadButton=function (){
 document.addEventListener('DOMContentLoaded',function (){
 	document.getElementById('section-listening_show-all-download-link').onclick=showDownloadButton;
 	document.getElementById('section-listening_show-html-play-button').onclick=showHTMLPlayButton;
+	document.getElementById('version').textContent=chrome.runtime.getManifest().version;
 	getCurrentTabId(function (tabId){
 		chrome.tabs.sendMessage(tabId,{
 			operation: 'isListeningPage',
