@@ -6,3 +6,4 @@
   - 使用 HTML5 audio 元素实现听力录音播放，因此在 Flash 被默认禁用的 Chrome 中也可以完成所有测试
 
 ![](img/feature.png)
+![](img/extension.png)
