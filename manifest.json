@@ -1,6 +1,6 @@
 {
 	"name": "NPELS 课程测试辅助",
-	"version": "1.0",
+	"version": "1.1",
 	"description": "新理念外语网络教学中心 课程在线测试 辅助扩展程序",
 	"manifest_version": 2,
 	"browser_action": {
