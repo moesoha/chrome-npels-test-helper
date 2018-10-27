@@ -4,8 +4,12 @@
 	"description": "Download listening sounds on the page.",
 	"manifest_version": 2,
 	"browser_action": {
-		"default_icon": "icon.png",
+		"default_icon": "img/logo48.png",
 		"default_popup": "popup.html"
+	},
+	"icons": {
+		"48": "img/logo48.png",
+		"128": "img/logo128.png"
 	},
 	"content_scripts": [{
 		"js": [
