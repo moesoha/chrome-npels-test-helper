@@ -76,11 +76,13 @@ chrome.runtime.onMessage.addListener(function (message,sender,respond){
 				break;
 			}
 			getPlayBaseUrl(function (playBaseUrl){
+				let i=0;
 				iteratePlayButtons(function (playFileUrl,e){
+					i++;
 					let fileUrl=playBaseUrl+playFileUrl;
 					let downloadButton=document.querySelector('iframe#mainFrame').contentDocument.createElement('a');
 					downloadButton.setAttribute('href',fileUrl);
-					downloadButton.setAttribute('download','listening');
+					downloadButton.setAttribute('download',`listening-${i}-${Math.floor(Math.random()*1000000)}`);
 					downloadButton.textContent='下载录音';
 					e.appendChild(downloadButton);
 				});
