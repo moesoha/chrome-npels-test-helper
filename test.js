@@ -96,6 +96,7 @@ chrome.runtime.onMessage.addListener(function (message,sender,respond){
 				iteratePlayButtons(function (_,p,e){
 					let newButton=e.cloneNode(true);
 					newButton.removeAttribute('onclick');
+					newButton.id=newButton.id.replace('_','_p_');
 					let payload=e.attributes.onclick.value.replace('PlaySound','PlaySoundChrome');
 					newButton.onclick=function (e){
 						let PlaySoundChrome=(function (playBaseUrl){
