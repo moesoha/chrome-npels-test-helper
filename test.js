@@ -93,10 +93,9 @@ chrome.runtime.onMessage.addListener(function (message,sender,respond){
 			getPlayBaseUrl(function (playBaseUrl){
 				iteratePlayButtons(function (_,p,e){
 					let newButton=e.cloneNode(true);
-					console.log(newButton);
 					newButton.removeAttribute('onclick');
 					let payload=e.attributes.onclick.value.replace('PlaySound','PlaySoundChrome');
-					newButton.onclick=function (){
+					newButton.onclick=function (e){
 						let PlaySoundChrome=(function (playBaseUrl){
 							let html5Audio=document.createElement('audio');
 							html5Audio.style="display: none;";
@@ -108,7 +107,15 @@ chrome.runtime.onMessage.addListener(function (message,sender,respond){
 								html5Audio.volume=1;
 								html5Audio.play();
 								if(id){
-	
+									let count=e.srcElement.value;
+									count=count.substring(count.indexOf('（')+1);
+									count=count.substring(0, count.indexOf('次'));
+									count=parseInt(count);
+									count--;
+									e.srcElement.value=`HTML5播放（${count}次机会）`;
+									if(count<=0){
+										e.srcElement.setAttribute('disabled','disabled');
+									}
 								}
 							};
 						})(playBaseUrl);
