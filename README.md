@@ -17,6 +17,8 @@
 
 ### 离线安装包
 
+*通过此种方式安装的扩展程序不能自动更新。*
+
 从 [GitHub Release](https://github.com/moesoha/chrome-npels-test-helper/releases) 下载最新 .crx 文件。
 
 然后在 Chrome 的地址栏中输入 `chrome://extensions` 进入扩展程序页面。
