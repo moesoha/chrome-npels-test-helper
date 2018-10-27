@@ -17,6 +17,15 @@ let getDocumentVariables=function (varName,callback){
 	magicScript.parentNode.removeChild(magicScript);
 };
 
+let _html5AudioPlayer,html5AudioPlayer=function (){
+	if(!_html5AudioPlayer){
+		_html5AudioPlayer=document.querySelector('iframe#mainFrame').contentDocument.createElement('audio');
+		_html5AudioPlayer.style="display: none;";
+		document.querySelector('iframe#mainFrame').contentDocument.body.appendChild(_html5AudioPlayer);
+	}
+	return _html5AudioPlayer;
+};
+
 let iteratePlayButtons=function (doEach){
 	document.querySelector('iframe#mainFrame').contentDocument.querySelectorAll('.play_but').forEach(function (e){
 		let playButton=e.querySelector('input[type="button"]');
@@ -101,9 +110,7 @@ chrome.runtime.onMessage.addListener(function (message,sender,respond){
 					let payload=e.attributes.onclick.value.replace('PlaySound','PlaySoundChrome');
 					newButton.onclick=function (e){
 						let PlaySoundChrome=(function (playBaseUrl){
-							let html5Audio=document.createElement('audio');
-							html5Audio.style="display: none;";
-							document.body.appendChild(html5Audio);
+							let html5Audio=html5AudioPlayer();
 							return function (src,id){
 								let soundfile=playBaseUrl+src;
 								html5Audio.src=soundfile;
