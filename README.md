@@ -9,11 +9,11 @@
 
 下面两种方法，任选其一都可以安装本扩展程序。
 
-### Google Chrome 网上商店 (尚未过审)
+### Google Chrome 网上商店
 
 *中国大陆用户可能需要小手段才能使用此种方式。*
 
-~~直接进入[NPELS 课程测试辅助](https://chrome.google.com/webstore/detail/kfcaaiahbmenlegdenhaogcmmmglcjoe)点击安装。~~
+直接进入[NPELS 课程测试辅助](https://chrome.google.com/webstore/detail/kfcaaiahbmenlegdenhaogcmmmglcjoe)点击安装。
 
 ### 离线安装包
 
