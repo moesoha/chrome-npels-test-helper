@@ -1,5 +1,6 @@
 'use strict';
 
+/* Test Page Functions */
 let getDocumentVariables=function (varName,callback){
 	let magicScript=document.querySelector('iframe#mainFrame').contentDocument.createElement('script');
 	let eventName=`MagicThings_${new Date().getTime()}_${Math.floor(Math.random()*10000)}_Event`;
@@ -16,7 +17,6 @@ let getDocumentVariables=function (varName,callback){
 	document.querySelector('iframe#mainFrame').contentDocument.body.appendChild(magicScript);
 	magicScript.parentNode.removeChild(magicScript);
 };
-
 let _html5AudioPlayer,html5AudioPlayer=function (){
 	if(!_html5AudioPlayer){
 		_html5AudioPlayer=document.querySelector('iframe#mainFrame').contentDocument.createElement('audio');
@@ -25,7 +25,6 @@ let _html5AudioPlayer,html5AudioPlayer=function (){
 	}
 	return _html5AudioPlayer;
 };
-
 let iteratePlayButtons=function (doEach){
 	document.querySelector('iframe#mainFrame').contentDocument.querySelectorAll('.play_but').forEach(function (e){
 		let playButton=e.querySelector('input[type="button"]');
@@ -74,11 +73,20 @@ let iteratePlayButtons=function (doEach){
 	});
 };
 
+/* Course Page Functions */
+let isCoursePage=function (){
+	let innerHtml=document.querySelector('iframe#mainFrame').contentDocument.documentElement.querySelector("form[name='form1']");
+	return innerHtml?innerHtml.attributes.action.value.indexOf('CourseStudy.aspx')>-1:false;
+}
+
 chrome.runtime.onMessage.addListener(function (message,sender,respond){
 	let {data,operation}=message;
 	switch(operation){
 		case 'isListeningPage':
 			respond(isListeningPage());
+			break;
+		case 'isCoursePage':
+			respond(isCoursePage());
 			break;
 		case 'showDownloadButton':
 			if(!isListeningPage()){

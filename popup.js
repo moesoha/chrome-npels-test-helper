@@ -49,6 +49,18 @@ document.addEventListener('DOMContentLoaded',function (){
 				document.getElementById('section-listening_filenum').textContent=soundFileNames.length.toString();
 			});
 		});
+		chrome.tabs.sendMessage(tabId,{
+			operation: 'isCoursePage',
+			from: 'popup'
+		},function (isCourse){
+			document.getElementById('is-on-course').innerText=isCourse?"已在当前页面检测到课程学习":"当前页面未检测到 NPELS 课程学习";
+			document.getElementById('is-on-course').classList.value=isCourse?"green":"red";
+			if(!isCourse){
+				return;
+			}
+			document.getElementById('section-course').classList.remove('hide');
+			
+		});
 	});
 
 	document.querySelectorAll('a.newtab').forEach(function (ln){
