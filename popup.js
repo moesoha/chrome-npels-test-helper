@@ -26,10 +26,21 @@ let showDownloadButton=function (){
 		});
 	});
 };
+let injectAutoRecoverTimer=function (){
+	getCurrentTabId(function (tabId){
+		chrome.tabs.sendMessage(tabId,{
+			operation: 'injectAutoDismissWords',
+			from: 'popup'
+		});
+		document.getElementById('section-course_recover-timer').textContent='自动点击事件注入完成';
+		document.getElementById('section-course_recover-timer').setAttribute('disabled',true);
+	});
+}
 
 document.addEventListener('DOMContentLoaded',function (){
 	document.getElementById('section-listening_show-all-download-link').onclick=showDownloadButton;
 	document.getElementById('section-listening_show-html-play-button').onclick=showHTMLPlayButton;
+	document.getElementById('section-course_recover-timer').onclick=injectAutoRecoverTimer;
 	document.getElementById('version').textContent=chrome.runtime.getManifest().version;
 	getCurrentTabId(function (tabId){
 		chrome.tabs.sendMessage(tabId,{
@@ -59,7 +70,6 @@ document.addEventListener('DOMContentLoaded',function (){
 				return;
 			}
 			document.getElementById('section-course').classList.remove('hide');
-			
 		});
 	});
 

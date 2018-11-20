@@ -77,7 +77,22 @@ let iteratePlayButtons=function (doEach){
 let isCoursePage=function (){
 	let innerHtml=document.querySelector('iframe#mainFrame').contentDocument.documentElement.querySelector("form[name='form1']");
 	return innerHtml?innerHtml.attributes.action.value.indexOf('CourseStudy.aspx')>-1:false;
-}
+},autoTimerToInject=`(function (){
+	let isBusy=false;
+	console.log('Auto dismiss timer injected! Plugin repo: https://github.com/moesoha/chrome-npels-test-helper');
+	setInterval(function (){
+		let a=document.getElementsByClassName("leaveMsg");
+		if(a.length>0 && !isBusy){
+			isBusy=true;
+			console.log('detected! close in 1s');
+			document.querySelector(".leaveMsg>input[type='button']").attributes.value.value="1s后关闭";
+			setTimeout(function (){
+				TINY.box.hide();
+				isBusy=false;
+			},1000);
+		}
+	},1000);
+})()`;
 
 chrome.runtime.onMessage.addListener(function (message,sender,respond){
 	let {data,operation}=message;
@@ -87,6 +102,12 @@ chrome.runtime.onMessage.addListener(function (message,sender,respond){
 			break;
 		case 'isCoursePage':
 			respond(isCoursePage());
+			break;
+		case 'injectAutoDismissWords':
+			let magicScript=document.createElement('script');
+			magicScript.textContent=autoTimerToInject;
+			document.body.appendChild(magicScript);
+			magicScript.parentNode.removeChild(magicScript);
 			break;
 		case 'showDownloadButton':
 			if(!isListeningPage()){
