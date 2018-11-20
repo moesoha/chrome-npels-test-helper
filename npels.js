@@ -166,7 +166,7 @@ chrome.runtime.onMessage.addListener(function (message,sender,respond){
 				path.pop();
 				magicForm.action=`${answerUrl.protocol}//${answerUrl.host}/${path.join('/')}/Student/ViewTestTask.aspx`;
 				let hint=document.createElement('h1');
-				hint.textContent="正在获取答案，请稍等……";
+				hint.textContent="Getting your answer, hold on...";
 				magicForm.appendChild(hint);
 				appendToForm('ttid',param.ttid);
 				appendToForm('sheetid',param.sheetid);
