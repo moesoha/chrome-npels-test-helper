@@ -77,7 +77,7 @@ let iteratePlayButtons=function (doEach){
 let isCoursePage=function (){
 	let innerHtml=document.querySelector('iframe#mainFrame').contentDocument.documentElement.querySelector("form[name='form1']");
 	return innerHtml?innerHtml.attributes.action.value.indexOf('CourseStudy.aspx')>-1:false;
-},autoTimerToInject=`(function (){
+},autoTimerInjected=false,autoTimerDismissedCount=0,autoTimerToInject=`(function (){
 	let isBusy=false;
 	console.log('Auto dismiss timer injected! Plugin repo: https://github.com/moesoha/chrome-npels-test-helper');
 	setInterval(function (){
@@ -108,6 +108,10 @@ chrome.runtime.onMessage.addListener(function (message,sender,respond){
 			magicScript.textContent=autoTimerToInject;
 			document.body.appendChild(magicScript);
 			magicScript.parentNode.removeChild(magicScript);
+			autoTimerInjected=true;
+			break;
+		case 'isInjectedAutoDismissWords':
+			respond(autoTimerInjected);
 			break;
 		case 'showDownloadButton':
 			if(!isListeningPage()){

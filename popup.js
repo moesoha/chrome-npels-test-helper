@@ -32,7 +32,7 @@ let injectAutoRecoverTimer=function (){
 			operation: 'injectAutoDismissWords',
 			from: 'popup'
 		});
-		document.getElementById('section-course_recover-timer').textContent='自动点击事件注入完成';
+		document.getElementById('section-course_recover-timer').textContent='自动点击模块注入完成';
 		document.getElementById('section-course_recover-timer').setAttribute('disabled',true);
 	});
 }
@@ -70,6 +70,15 @@ document.addEventListener('DOMContentLoaded',function (){
 				return;
 			}
 			document.getElementById('section-course').classList.remove('hide');
+			chrome.tabs.sendMessage(tabId,{
+				operation: 'isInjectedAutoDismissWords',
+				from: 'popup'
+			},function (isInjected){
+				if(isInjected){
+					document.getElementById('section-course_recover-timer').textContent='自动点击已注入';
+					document.getElementById('section-course_recover-timer').setAttribute('disabled',true);
+				}
+			});
 		});
 	});
 
