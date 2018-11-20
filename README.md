@@ -4,6 +4,7 @@
 
   - 显示听力录音下载按钮
   - 使用 HTML5 audio 元素实现听力录音播放，因此在原本不能正常完成听力测试的 Chrome 中也可以完成所有测试
+  - 课程学习页面每隔一段时间会弹出一个单词，如果不点击关闭单词，课程学习计时会暂停。这个扩展可以**自动关闭**单词框，自动恢复计时
 
 ## 取得扩展
 
@@ -29,5 +30,9 @@
 
 ## 截图
 
+![](img/extension-course.png)
+![](img/extension-listening.png)
+
 ![](img/feature.png)
-![](img/extension.png)
+
+![](img/auto-dismiss.jpg)
