@@ -25,6 +25,18 @@ let showDownloadButton=function (){
 			from: 'popup'
 		});
 	});
+},showTestAnswer=function (){
+	getCurrentTabId(function (tabId){
+		chrome.tabs.sendMessage(tabId,{
+			operation: 'showTestAnswer',
+			from: 'popup'
+		},function (payload){
+			chrome.tabs.create({
+				active: true,
+				url: payload
+			});
+		});
+	});
 };
 let injectAutoRecoverTimer=function (){
 	getCurrentTabId(function (tabId){
@@ -41,6 +53,7 @@ document.addEventListener('DOMContentLoaded',function (){
 	document.getElementById('section-listening_show-all-download-link').onclick=showDownloadButton;
 	document.getElementById('section-listening_show-html-play-button').onclick=showHTMLPlayButton;
 	document.getElementById('section-course_recover-timer').onclick=injectAutoRecoverTimer;
+	document.getElementById('section-listening_show_answer').onclick=showTestAnswer;
 	document.getElementById('version').textContent=chrome.runtime.getManifest().version;
 	getCurrentTabId(function (tabId){
 		chrome.tabs.sendMessage(tabId,{

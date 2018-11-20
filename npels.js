@@ -1,6 +1,5 @@
 'use strict';
 
-/* Test Page Functions */
 let getDocumentVariables=function (varName,callback){
 	let magicScript=document.querySelector('iframe#mainFrame').contentDocument.createElement('script');
 	let eventName=`MagicThings_${new Date().getTime()}_${Math.floor(Math.random()*10000)}_Event`;
@@ -17,6 +16,8 @@ let getDocumentVariables=function (varName,callback){
 	document.querySelector('iframe#mainFrame').contentDocument.body.appendChild(magicScript);
 	magicScript.parentNode.removeChild(magicScript);
 };
+
+/* Test Page Functions */
 let _html5AudioPlayer,html5AudioPlayer=function (){
 	if(!_html5AudioPlayer){
 		_html5AudioPlayer=document.querySelector('iframe#mainFrame').contentDocument.createElement('audio');
@@ -71,6 +72,38 @@ let iteratePlayButtons=function (doEach){
 			callback(fullPath[1]);
 		}
 	});
+},getPaperParameters=function (callback){
+	let param={};
+	getDocumentVariables('InitParts',function (InitParts){
+		if(!InitParts){
+			callback(null);
+			return;
+		}
+		let matches;
+		matches=InitParts.match(/ttid:[\s\W](\d+)/);
+		if(matches){
+			param.ttid=parseInt(matches[1]);
+		}
+		matches=InitParts.match(/sheetid:[\s\W](\d+)/);
+		if(matches){
+			param.sheetid=parseInt(matches[1]);
+		}
+		getDocumentVariables('sttid',function (sttid){
+			if(!sttid){
+				callback(null);
+				return;
+			}
+			param.sttid=parseInt(sttid);
+			getDocumentVariables('curPartNum',function (curPartNum){
+				if(!curPartNum){
+					callback(null);
+					return;
+				}
+				param.part=parseInt(curPartNum);
+				callback(param);
+			});
+		});
+	});
 };
 
 /* Course Page Functions */
@@ -112,6 +145,43 @@ chrome.runtime.onMessage.addListener(function (message,sender,respond){
 			break;
 		case 'isInjectedAutoDismissWords':
 			respond(autoTimerInjected);
+			break;
+		case 'showTestAnswer':
+			getPaperParameters(function (param){
+				if(!param){
+					alert('参数获取失败');
+				}
+				let payload='data:text/html;charset=utf8,';
+				let magicForm=document.createElement('form');
+				let appendToForm=function (k,v){
+					let input=document.createElement('input');
+					input.setAttribute('name',k);
+					input.setAttribute('value',v);
+					input.setAttribute('type','hidden');
+					magicForm.appendChild(input);
+				};
+				magicForm.method='POST';
+				let answerUrl=new URL(document.location.href);
+				let path=answerUrl.pathname.split('/');
+				path.pop();
+				magicForm.action=`${answerUrl.protocol}//${answerUrl.host}/${path.join('/')}/Student/ViewTestTask.aspx`;
+				let hint=document.createElement('h1');
+				hint.textContent="正在获取答案，请稍等……";
+				magicForm.appendChild(hint);
+				appendToForm('ttid',param.ttid);
+				appendToForm('sheetid',param.sheetid);
+				appendToForm('sttid',param.sttid);
+				appendToForm('partnum',param.part);
+				appendToForm('action','getPart');
+				appendToForm('nocache',Math.random());
+				payload+=encodeURIComponent(magicForm.outerHTML);
+				payload+=encodeURIComponent('<script>document.forms[0].submit();</script>');
+				// chrome.tabs.create({
+				// 	url: payload,
+				// 	active: true
+				// });
+				respond(payload);
+			});
 			break;
 		case 'showDownloadButton':
 			if(!isListeningPage()){
