@@ -11,6 +11,8 @@ function getCurrentTabId(callback){
 	});
 }
 
+let magicClickCount=0;
+
 let showDownloadButton=function (){
 	getCurrentTabId(function (tabId){
 		chrome.tabs.sendMessage(tabId,{
@@ -37,6 +39,11 @@ let showDownloadButton=function (){
 			});
 		});
 	});
+},magicClick_ShowTestAnswer=function (){
+	if((++magicClickCount)<16){
+		return;
+	}
+	document.getElementById('hide-listening_show_answer').classList.remove('hide');
 };
 let injectAutoRecoverTimer=function (){
 	getCurrentTabId(function (tabId){
@@ -71,6 +78,7 @@ document.addEventListener('DOMContentLoaded',function (){
 				from: 'popup'
 			},function (soundFileNames){
 				document.getElementById('section-listening_filenum').textContent=soundFileNames.length.toString();
+				document.getElementById('section-listening_filenum').onclick=magicClick_ShowTestAnswer;
 			});
 		});
 		chrome.tabs.sendMessage(tabId,{
