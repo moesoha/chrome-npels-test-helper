@@ -21,6 +21,8 @@
 		]
 	}],
 	"permissions": [
-		"activeTab"
+		"activeTab",
+		"https://github.com",
+		"https://raw.githubusercontent.com"
 	]
 }

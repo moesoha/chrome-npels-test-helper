@@ -11,6 +11,26 @@ function getCurrentTabId(callback){
 	});
 }
 
+let checkUpdate=function (callback){
+	let xhr=new XMLHttpRequest();
+	xhr.open('GET','https://github.com/moesoha/chrome-npels-test-helper/blob/master/manifest.json?raw=true',true);
+	xhr.send();
+	xhr.onreadystatechange=function (){
+		if(xhr.readyState==xhr.DONE){
+			try{
+				let d=JSON.parse(xhr.responseText);
+				if(d.version==chrome.runtime.getManifest().version){
+					callback(null);
+				}else{
+					callback(d.version);
+				}
+			}catch(e){
+				callback(null);
+			}
+		}
+	};
+};
+
 let magicClickCount=0;
 
 let showDownloadButton=function (){
@@ -57,6 +77,13 @@ let injectAutoRecoverTimer=function (){
 }
 
 document.addEventListener('DOMContentLoaded',function (){
+	checkUpdate(function (latest){
+		document.getElementById('checking-update').classList.add('hide');
+		if(latest!=null){
+			document.getElementById('show-latest-version').textContent=latest;
+			document.getElementById('hide-version_update').classList.remove('hide');
+		}
+	});
 	document.getElementById('section-listening_show-all-download-link').onclick=showDownloadButton;
 	document.getElementById('section-listening_show-html-play-button').onclick=showHTMLPlayButton;
 	document.getElementById('section-course_recover-timer').onclick=injectAutoRecoverTimer;
