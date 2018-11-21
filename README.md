@@ -8,19 +8,13 @@
 
 <!-- 还有一个蛇皮功能，在测试页面上点击扩展，扩展页面上疯狂点击“该页面有听力文件 12 个”中的数字，比如“12”，可以查看当前测试答案。 -->
 
-## 取得扩展
+## 安装/更新扩展
 
 下面两种方法，任选其一都可以安装本扩展程序。
 
-### Google Chrome 网上商店
+### 1. 通过安装包
 
-*中国大陆用户可能需要小手段才能使用此种方式。*
-
-直接进入[NPELS 课程测试辅助](https://chrome.google.com/webstore/detail/kfcaaiahbmenlegdenhaogcmmmglcjoe)点击安装。
-
-### 离线安装包
-
-*通过此种方式安装的扩展程序不能自动更新。*
+**访问[这个页面](http://huaji233.coding.me/npels/index.html)，你就不需要阅读下面的内容了。**
 
 从 [GitHub Release](https://github.com/moesoha/chrome-npels-test-helper/releases) 下载最新 .crx 文件。
 
@@ -29,6 +23,13 @@
 扩展程序页面右上角打开开发者模式，然后拖新下载的 .crx 文件进扩展程序页面按提示完成安装。
 
 ![](img/drop-install.png)
+
+
+### 2. Google Chrome 网上商店
+
+*中国大陆用户可能需要小手段才能使用此种方式。*
+
+直接进入[NPELS 课程测试辅助](https://chrome.google.com/webstore/detail/kfcaaiahbmenlegdenhaogcmmmglcjoe)点击安装。
 
 ## 截图
 
