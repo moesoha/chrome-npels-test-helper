@@ -14,7 +14,7 @@
 
 ### 1. 通过安装包
 
-**访问[这个页面](http://huaji233.coding.me/npels/index.html)，你就不需要阅读下面的内容了。**
+**国内用户可以访问[这个页面](http://huaji233.coding.me/npels/index.html)，你就不需要阅读下面的内容了。**
 
 从 [GitHub Release](https://github.com/moesoha/chrome-npels-test-helper/releases) 下载最新 .crx 文件。
 
@@ -23,7 +23,6 @@
 扩展程序页面右上角打开开发者模式，然后拖新下载的 .crx 文件进扩展程序页面按提示完成安装。
 
 ![](img/drop-install.png)
-
 
 ### 2. Google Chrome 网上商店
 
